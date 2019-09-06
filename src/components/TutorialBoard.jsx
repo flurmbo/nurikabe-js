@@ -18,7 +18,10 @@ const useStyles = makeStyles(theme => ({
     borderBottom: "1px solid black",
     padding: 0,
     margin: 0,
-    float: "left"
+    float: "left",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   }
 }));
 

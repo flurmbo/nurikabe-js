@@ -5,12 +5,11 @@ import Link from '@material-ui/core/Link';
 const Footer = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      Made in 2019 by
+      {' '}
+      <Link color="primary" href="https://www.github.com/flurmbo">
+        Phil Marshall
       </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 }

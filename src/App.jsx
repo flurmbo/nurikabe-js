@@ -60,7 +60,7 @@ function App() {
       <AppBar position="static" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" className={classes.title}>
-            ぬりかべ (Nurikabe)
+          Nurikabe (ぬりかべ)!
           </Typography>
           <Button color="inherit" onClick={() => setTab(0)}>
             Play

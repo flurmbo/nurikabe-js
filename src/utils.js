@@ -13,8 +13,28 @@ export const isPool = (cells, width) => {
   }
   return false;
 };
-export const tutorialBoards = [
-  [
+export const tutorialContent = [
+  {
+    board: {
+      cells: [
+      {type: 'highlighted'},
+      {type: 'highlighted'},
+      {type: 'highlighted'},
+      {type: 'static', filled: false},
+      {type: 'static', filled: true},
+      {type: 'static', filled: false},
+      {type: 'number', value: 3},
+      {type: 'static', filled: true},
+      {type: 'number', value: 3},
+    ],
+    width: 3,
+    height: 3
+  },
+    text: "First step in tutorial"
+  },
+  {
+  board: {
+    cells: [
     {type: 'highlighted'},
     {type: 'static', filled: true},
     {type: 'static', filled: false},
@@ -31,7 +51,15 @@ export const tutorialBoards = [
     {type: 'number', value: 5},
     {type: 'static', filled: true},
     {type: 'static', filled: true},
-  ]
-]
+  ],
+  width: 4,
+  height: 4
+},
+  text: "The puzzle below is almost complete. All that is left is to fill in one of the highlighted cells"
+  + "so the the '5' in the bottom-left corner is complete. Which one should be filled"
+  + "so that the sea stays connected?"
+}
+];
+
 export const loremIpsum =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";

@@ -2,36 +2,40 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import TutorialBoard from "./TutorialBoard";
-import { tutorialBoards } from '../utils'
-
+import Stepper from "@material-ui/core/Stepper";
+import StepLabel from "@material-ui/core/StepLabel";
+import Step from "@material-ui/core/Step"
+import Button from "@material-ui/core/Button"
+import { tutorialContent } from '../utils'
+import TutorialStep from './TutorialStep';
 const useStyles = makeStyles(theme => ({
 }));
 
 const Tutorial = props => {
+  console.log(tutorialContent[0])
+  const getStepContent = (index) => {
+      return (
+        <TutorialStep stepContent={tutorialContent[index]} />
+      )
+    };
   const classes = useStyles();
-  const [cells, setCells] = useState(() => {
-    return tutorialBoards[0]
-  });
-  const [choice, setChoice] = useState(undefined)
+  const [activeStep, setActiveStep] = useState(0);
+  const steps = [0,1,2];
   return (
     <React.Fragment>
-      <Typography>
-        The puzzle below is almost complete. All that is left is to fill in one of the highlighted cells 
-        so the the '5' in the bottom-left corner is complete. Which one should be filled
-        so that the sea stays connected?
-      </Typography>
-      <TutorialBoard
-        cells={cells}
-        setChoice={setChoice}
-        height={4}
-        width={4}
-      />
-      <div>
-      { choice === 0 && 'wrong!'}
-      { choice === 5 && 'right!'}
-      </div>
-      
+      <Stepper activeStep={activeStep} alternativeLabel className={classes.stepper}>
+          {steps.map(step => (
+            <Step key={step}>
+              <StepLabel></StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        {getStepContent(activeStep)}
+        <Button
+          onClick={() => setActiveStep(1)}
+        >
+          Continue
+          </Button>      
     </React.Fragment>
   );
 };
