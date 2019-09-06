@@ -5,7 +5,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
-import NurikabeBoard from './components/NurikabeBoard'
+import NurikabeBoard from './components/NurikabeBoard';
+import AboutSection from './components/AboutSection';
+import Footer from './components/Footer';
 import './App.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,29 +48,37 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
+  const [tab, setTab] = useState(0);
   const [cells, setCells] = useState(() => {
     const cells = new Array(9);
     return cells.fill({filled: false});
   });
 
   return (
-    <div>
+    <React.Fragment>
       <AppBar position="static" className={classes.appBar}>
           <Toolbar className={classes.toolbar}>
             <Typography variant="h6" className={classes.title}>
             ぬりかべ (Nurikabe)
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Button color="inherit" onClick={() => setTab(0)}>Play</Button>
+            <Button color="inherit" onClick={() => setTab(1)}>Tutorial</Button>
+            <Button color="inherit" onClick={() => setTab(2)}>About</Button>
           </Toolbar>
         </AppBar>
       <main className={classes.layout}>
               
         <Paper className={classes.paper}>
-
+        {tab === 0 &&
           <NurikabeBoard height={3} width={3} cells={cells} setCells={setCells}/>
+        }
+        {tab === 2 && 
+          <AboutSection />
+        }
         </Paper>
       </main>
-    </div>
+      <Footer/>
+    </React.Fragment>
   );
 }
 

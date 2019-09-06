@@ -40,8 +40,9 @@ const NurikabeBoard = props => {
         return (
           <div
             className={classes.boardCell}
-            style={{ backgroundColor: cell.filled ? "black" : "white" }}
+            style={{ backgroundColor: cell.filled ? "blue" : "white" }}
             onClick={toggle.bind({index})}
+            onDoubleClick={() => {console.log('double click')}}
             key={index}
           />
         );
