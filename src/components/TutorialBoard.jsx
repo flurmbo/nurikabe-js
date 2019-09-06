@@ -2,8 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 
-import { isPool } from '../utils';
-
 const useStyles = makeStyles(theme => ({
   boardContainer: {
     margin: "0 auto",
@@ -24,17 +22,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NurikabeBoard = props => {
+const TutorialBoard = props => {
   const classes = useStyles();
-  const { cells, setCells, height, width } = props;
+  const { cells, setChoice, height, width } = props;
 
-  const toggle = function() {
-    setCells(prevCells => {
-      return prevCells.map((cell, index) => {
-        return index === this.index ? {filled: !prevCells[index].filled} : prevCells[index]
-      })
-    })
-  }
   return (
     <React.Fragment>
     <div className={classes.boardContainer} style={{height: height * 30 + 1, width: width * 30 + 1}}>
@@ -43,25 +34,22 @@ const NurikabeBoard = props => {
           <div
             className={classes.boardCell}
             style={{ backgroundColor: cell.filled ? "blue" : "white" }}
-            onClick={toggle.bind({index})}
-            onDoubleClick={() => {console.log('double click')}}
             key={index}
-          />
+          >
+            {cell.type === 'number' && cell.value}
+          </div>
         );
       })}
     </div>
-    { isPool(cells, width) && <div>
-      pool is found
-    </div>}
     </React.Fragment>
   );
 };
 
-NurikabeBoard.propTypes = {
+TutorialBoard.propTypes = {
   height: PropTypes.number,
   width: PropTypes.number,
   cells: PropTypes.array,
-  setCells: PropTypes.func
+  setChoice: PropTypes.func
 };
 
-export default NurikabeBoard;
+export default TutorialBoard;
