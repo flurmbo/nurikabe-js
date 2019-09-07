@@ -36,7 +36,7 @@ const TutorialBoard = props => {
         return (
           <div
             className={classes.boardCell}
-            style={{ backgroundColor: cell.filled ? "blue" : "white" }}
+            style={{ backgroundColor: cell.filled ? "rgb(33,62,92)" : "white" }}
             key={index}
           >
             {cell.type === 'number' && cell.value}

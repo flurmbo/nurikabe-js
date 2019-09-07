@@ -9,6 +9,15 @@ import Button from "@material-ui/core/Button"
 import { tutorialContent } from '../utils'
 import TutorialStep from './TutorialStep';
 const useStyles = makeStyles(theme => ({
+  continue: {
+    float: 'right'
+  },
+  previous: {
+    float: 'left'
+  },
+  clear: {
+    clear: 'both'
+  }
 }));
 
 const Tutorial = props => {
@@ -33,9 +42,19 @@ const Tutorial = props => {
         {getStepContent(activeStep)}
         <Button
           onClick={() => setActiveStep(1)}
+          className={classes.previous}
+          color="primary"
+        >
+          Previous
+          </Button>  
+        <Button
+          onClick={() => setActiveStep(1)}
+          className={classes.continue}
+          color="primary"
         >
           Continue
           </Button>      
+        <div className={classes.clear}/>
     </React.Fragment>
   );
 };
