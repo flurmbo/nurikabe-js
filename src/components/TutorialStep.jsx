@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState , useRef, useEffect  } from "react";
 import { makeStyles } from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
+import Grid from '@material-ui/core/Grid'
 import PropTypes from "prop-types";
 import TutorialBoard from "./TutorialBoard";
 
@@ -14,6 +15,14 @@ const TutorialStep = props => {
     return stepContent.board.cells
   });
 
+
+  const containerRef = useRef(null);
+  const [containerWidth, setContainerWidth] = useState(undefined)
+
+  useEffect(() => {
+    setContainerWidth(containerRef.current.clientWidth);
+  }, [])
+
   const handleClick = (index) => {
     if (index === stepContent.answer) {
       setSolved();
@@ -21,17 +30,24 @@ const TutorialStep = props => {
   }
   return (
     <React.Fragment>
+      <Grid container spacing={3}>
+      <Grid item xs={6}>
       <Typography
       >
         {stepContent.text}
-      </Typography>
-      <TutorialBoard
+      </Typography></Grid>
+      <Grid item xs={6} ref={containerRef}>
+        {containerWidth &&
+        <TutorialBoard
         cells={stepContent.board.cells}
         height={stepContent.board.height}
         width={stepContent.board.width}
+        containerWidth={containerWidth}
         handleClick={handleClick}
-      />
+      />}
+      </Grid>
       
+      </Grid>
     </React.Fragment>
   );
 };

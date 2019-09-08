@@ -44,7 +44,7 @@ const Tutorial = props => {
     return (
       <TutorialStep 
         stepContent={tutorialContent[index]}
-        setSolved={setThisStepSolved.bind({index})}  
+        setSolved={setThisStepSolved.bind({index})} 
       />
     )
   };
