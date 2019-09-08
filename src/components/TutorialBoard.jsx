@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 const TutorialBoard = props => {
   const classes = useStyles();
-  const { cells, setChoice, height, width } = props;
+  const { cells, setChoice, height, width, handleClick } = props;
 
   return (
     <React.Fragment>
@@ -38,6 +38,7 @@ const TutorialBoard = props => {
             className={classes.boardCell}
             style={{ backgroundColor: cell.filled ? "rgb(33,62,92)" : "white" }}
             key={index}
+            onClick={() => handleClick(index)}
           >
             {cell.type === 'number' && cell.value}
           </div>

@@ -8,28 +8,29 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const TutorialStep = props => {
-  const { stepContent } = props;
+  const { stepContent, setSolved } = props;
   const classes = useStyles();
   const [cells, setCells] = useState(() => {
     return stepContent.board.cells
   });
-  const [choice, setChoice] = useState(undefined)
-  const [activeStep, setActiveStep] = useState(0)
+
+  const handleClick = (index) => {
+    if (index === stepContent.answer) {
+      setSolved();
+    }
+  }
   return (
     <React.Fragment>
-      <Typography>
+      <Typography
+      >
         {stepContent.text}
       </Typography>
       <TutorialBoard
         cells={stepContent.board.cells}
-        setChoice={setChoice}
         height={stepContent.board.height}
         width={stepContent.board.width}
+        handleClick={handleClick}
       />
-      <div>
-      { choice === 0 && 'wrong!'}
-      { choice === 5 && 'right!'}
-      </div>
       
     </React.Fragment>
   );

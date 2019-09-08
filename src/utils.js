@@ -30,7 +30,8 @@ export const tutorialContent = [
     width: 3,
     height: 3
   },
-    text: "First step in tutorial"
+    text: "First step in tutorial",
+    answer: 1
   },
   {
   board: {

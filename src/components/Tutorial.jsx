@@ -22,13 +22,33 @@ const useStyles = makeStyles(theme => ({
 
 const Tutorial = props => {
   console.log(tutorialContent[0])
-  const getStepContent = (index) => {
-      return (
-        <TutorialStep stepContent={tutorialContent[index]} />
-      )
-    };
+  
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  const [solvedSteps, setSolvedSteps] = useState(() => {
+    return new Array(tutorialContent.length).fill(false);
+  });
+  const setThisStepSolved = function() {
+    console.log(this.index)
+    setSolvedSteps(prevSolvedSteps => {
+      const newSolvedSteps = [...prevSolvedSteps]
+      newSolvedSteps[this.index] = true
+      return newSolvedSteps
+      // return prevSolvedSteps.map((value, index) => {
+      //   return index === this.index ? true : prevSolvedSteps[index];
+      // })
+    })
+  }
+
+  const getStepContent = (index) => {
+    return (
+      <TutorialStep 
+        stepContent={tutorialContent[index]}
+        setSolved={setThisStepSolved.bind({index})}  
+      />
+    )
+  };
+  console.log(solvedSteps);
   const steps = [0,1,2];
   return (
     <React.Fragment>
@@ -51,6 +71,7 @@ const Tutorial = props => {
           onClick={() => setActiveStep(1)}
           className={classes.continue}
           color="primary"
+          disabled={!solvedSteps[activeStep]}
         >
           Continue
           </Button>      
