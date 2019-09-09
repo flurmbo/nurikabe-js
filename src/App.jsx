@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Paper from "@material-ui/core/Paper";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,7 +9,7 @@ import NurikabeBoard from "./components/NurikabeBoard";
 import AboutSection from "./components/AboutSection";
 import Tutorial from "./components/Tutorial";
 import Footer from "./components/Footer";
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import "./App.css";
 
 const useStyles = makeStyles(theme => ({
@@ -25,24 +25,20 @@ const useStyles = makeStyles(theme => ({
       marginLeft: "auto",
       marginRight: "auto"
     },
-    position: 'absolute',
-    top: 64,
-    left: 0,
-    right: 0,
     '&.enter': {
       opacity: 0,
       'z-index': 1
   },
   '&.enter.enter-active': {
       opacity: 1,
-      transition: 'opacity 300ms linear 300ms'
+      transition: 'opacity 100ms linear 100ms'
   },
   '&.exit': {
       opacity: 1
   },
   '&.exit.exit-active': {
     opacity: 0,
-    transition: 'opacity 300ms linear'
+    transition: 'opacity 100ms linear'
 }
   },
   paper: {
@@ -77,7 +73,11 @@ function App() {
     const cells = new Array(9);
     return cells.fill({ filled: false });
   });
+  const contentRef = useRef(null);
 
+  useEffect(() => {
+    console.log(contentRef.current.clientHeight)
+  }, [tab])
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
@@ -96,13 +96,13 @@ function App() {
           </Button>
         </Toolbar>
       </AppBar>
-      <TransitionGroup>
+      <SwitchTransition mode='out-in'>
       <CSSTransition
         key={tab}
-        timeout={600}
+        timeout={200}
         className={classes.layout}
       >
-      <main>
+      <main ref={contentRef}>
         <Paper className={classes.paper}>
           {tab === 0 && (
             <NurikabeBoard
@@ -115,11 +115,14 @@ function App() {
           {tab === 1 && <Tutorial />}
           {tab === 2 && <AboutSection />}
         </Paper>
-      <Footer />
+
       </main>
+
     </CSSTransition>
-    </TransitionGroup>
+
+    </SwitchTransition>
       
+    <Footer />
       </div>
   );
 }
