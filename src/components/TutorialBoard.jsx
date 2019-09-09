@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
     width: props => props.cellLength * props.height + 1
   },
   boardCell: {
+    fontSize: props => props.cellLength * .66,
     width: props => props.cellLength,
     height: props => props.cellLength,
     boxSizing: "border-box",

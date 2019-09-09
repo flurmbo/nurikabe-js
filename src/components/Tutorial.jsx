@@ -8,6 +8,7 @@ import Step from "@material-ui/core/Step"
 import Button from "@material-ui/core/Button"
 import { tutorialContent } from '../utils'
 import TutorialStep from './TutorialStep';
+import Divider from "@material-ui/core/Divider"
 const useStyles = makeStyles(theme => ({
   continue: {
     float: 'right'
@@ -48,7 +49,21 @@ const Tutorial = props => {
       />
     )
   };
-  console.log(solvedSteps);
+
+  const stepos = tutorialContent.map((content, index) => {
+    if (index === activeStep) {
+      return (
+  <TutorialStep 
+      key={index}
+      stepContent={tutorialContent[index]}
+      setSolved={setThisStepSolved.bind({index})} 
+    />
+      )
+    } else {
+      return undefined
+    }
+  });
+  
   const steps = [0,1,2];
   return (
     <React.Fragment>
@@ -59,7 +74,8 @@ const Tutorial = props => {
             </Step>
           ))}
         </Stepper>
-        {getStepContent(activeStep)}
+        {stepos}
+        <div>
         <Button
           onClick={() => setActiveStep(1)}
           className={classes.previous}
@@ -75,6 +91,7 @@ const Tutorial = props => {
         >
           Continue
           </Button>      
+          </div>
         <div className={classes.clear}/>
     </React.Fragment>
   );

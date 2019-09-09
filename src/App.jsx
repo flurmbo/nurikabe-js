@@ -9,9 +9,13 @@ import NurikabeBoard from "./components/NurikabeBoard";
 import AboutSection from "./components/AboutSection";
 import Tutorial from "./components/Tutorial";
 import Footer from "./components/Footer";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import "./App.css";
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    position: 'relative'
+  },
   layout: {
     width: "auto",
     marginLeft: theme.spacing(2),
@@ -20,7 +24,26 @@ const useStyles = makeStyles(theme => ({
       width: 800,
       marginLeft: "auto",
       marginRight: "auto"
-    }
+    },
+    position: 'absolute',
+    top: 64,
+    left: 0,
+    right: 0,
+    '&.enter': {
+      opacity: 0,
+      'z-index': 1
+  },
+  '&.enter.enter-active': {
+      opacity: 1,
+      transition: 'opacity 300ms linear 300ms'
+  },
+  '&.exit': {
+      opacity: 1
+  },
+  '&.exit.exit-active': {
+    opacity: 0,
+    transition: 'opacity 300ms linear'
+}
   },
   paper: {
     marginTop: theme.spacing(3),
@@ -56,7 +79,7 @@ function App() {
   });
 
   return (
-    <React.Fragment>
+    <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" className={classes.title}>
@@ -73,7 +96,13 @@ function App() {
           </Button>
         </Toolbar>
       </AppBar>
-      <main className={classes.layout}>
+      <TransitionGroup>
+      <CSSTransition
+        key={tab}
+        timeout={600}
+        className={classes.layout}
+      >
+      <main>
         <Paper className={classes.paper}>
           {tab === 0 && (
             <NurikabeBoard
@@ -86,9 +115,12 @@ function App() {
           {tab === 1 && <Tutorial />}
           {tab === 2 && <AboutSection />}
         </Paper>
-      </main>
       <Footer />
-    </React.Fragment>
+      </main>
+    </CSSTransition>
+    </TransitionGroup>
+      
+      </div>
   );
 }
 

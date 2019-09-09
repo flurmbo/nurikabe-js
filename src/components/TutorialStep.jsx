@@ -20,7 +20,15 @@ const TutorialStep = props => {
   const [containerWidth, setContainerWidth] = useState(undefined)
 
   useEffect(() => {
-    setContainerWidth(containerRef.current.clientWidth);
+    const resizeHandler = () => {
+      setContainerWidth(containerRef.current.clientWidth);
+    }
+    resizeHandler();
+
+    window.addEventListener('resize', resizeHandler);
+    return () => {
+      window.removeEventListener('resize', resizeHandler)
+    }
   }, [])
 
   const handleClick = (index) => {
